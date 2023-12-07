@@ -1,1 +1,1 @@
-vehicle
+/buy-prod

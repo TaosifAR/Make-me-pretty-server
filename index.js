@@ -23,6 +23,7 @@ const client = new MongoClient(uri, {
       // Assuming 'client' is properly initialized and connected to MongoDB
       const vehicleCollection = client.db("Product-service").collection("Product Details");
       const teamCollection = client.db("Help-service").collection("team");
+      const reportcollection = client.db("Review-report").collection("reviews");
 
       app.post("/add-a-vehicle", async (req, res) => {
         const vehicle = req.body;
@@ -35,6 +36,14 @@ const client = new MongoClient(uri, {
         const result = await vehicleCollection.find().toArray();
         res.send(result);
       });
+      app.post("/contact-us",async(req, res) =>{
+        const values=req.body;
+        const result = await reportcollection.insertOne(values);
+        res.send(result);
+      });
+
+
+
       //API for fetching single product details
       app.get("/product/:id", async (req, res) =>{
 
@@ -75,10 +84,10 @@ const client = new MongoClient(uri, {
         res.send(teammate);
       });
       // get all the teammates
-      //app.get("/all-teammates", async (req, res) => {
-       // const result = await teamCollection.find().toArray();
-       // res.send(result);
-     // });
+      app.get("/all-teammates", async (req, res) => {
+        const result = await teamCollection.find().toArray();
+        res.send(result);
+      });
   
 
 
