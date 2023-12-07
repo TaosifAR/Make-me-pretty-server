@@ -58,6 +58,16 @@ const client = new MongoClient(uri, {
       console.log(result);
       res.send({result});
     });
+     // API for deleting a single vehicle
+     app.delete("/delete-by-id/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      // Now call the deleteOne method for deleting the selected vehicle
+
+      const result = await vehicleCollection.deleteOne(filter);
+      res.send(result);
+    });
+
 
   
   
