@@ -33,7 +33,7 @@ const client = new MongoClient(uri, {
       app.get("/add-vehicles",async(req, res) =>{
         const result = await vehicleCollection.find().toArray();
         res.send(result);
-      })
+      });
       //API for fetching single product details
       app.get("/product/:id", async (req, res) =>{
 
@@ -43,7 +43,22 @@ const client = new MongoClient(uri, {
         //const querry ={_id: new ObjectId(id)};
         const result = await vehicleCollection.findOne({_id: new ObjectId(id)});
         res.send(result);
-      })
+      });
+       // API for updating a single vehicle
+    app.put("/update-by-id/:id", async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const updatedProduct = req.body;
+      console.log(updatedProduct);
+
+      const updates = { $set: updatedProduct };
+
+      // Now call the updateOne method for updating the selected product
+      const result = await vehicleCollection.updateOne(filter,updates);
+      console.log(result);
+      res.send({result});
+    });
+
   
   
     } finally {
