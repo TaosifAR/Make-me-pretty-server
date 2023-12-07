@@ -39,6 +39,7 @@ const client = new MongoClient(uri, {
       app.post("/contact-us",async(req, res) =>{
         const values=req.body;
         const result = await reportcollection.insertOne(values);
+        console.log(req.body);
         res.send(result);
       });
 
