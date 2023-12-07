@@ -22,7 +22,8 @@ const client = new MongoClient(uri, {
     try {
       // Assuming 'client' is properly initialized and connected to MongoDB
       const vehicleCollection = client.db("Product-service").collection("Product Details");
-      
+      const teamCollection = client.db("Help-service").collection("team");
+
       app.post("/add-a-vehicle", async (req, res) => {
         const vehicle = req.body;
         
@@ -67,6 +68,18 @@ const client = new MongoClient(uri, {
       const result = await vehicleCollection.deleteOne(filter);
       res.send(result);
     });
+       // post a single teammate
+       app.post("/add-teammate", async (req, res) => {
+        const teammate = req.body;
+        const result = await teamCollection.insertOne(teammate);
+        res.send(teammate);
+      });
+      // get all the teammates
+      //app.get("/all-teammates", async (req, res) => {
+       // const result = await teamCollection.find().toArray();
+       // res.send(result);
+     // });
+  
 
 
   
